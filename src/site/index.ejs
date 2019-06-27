@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Title <%= version %></title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png"> -->
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- QUNIT -->
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+
+    <%if(devmode){%><script src="http://localhost:35729/livereload.js"></script><%}%>
+
+    <style>
+        .layout { opacity: 0; }
+    </style>
+</head>
+<body class="loading">
+<div class="layout">
+    <div class="layout__header">
+        ${require('./_partials/nav.html')}
+        <div class="demo_images">
+            <img class="cat" src="images/static/cat.jpg">
+            <img id="frontImg"/>
+        </div>
+    </div>
+    <div class="layout__content">
+
+        <div class="toolbar">
+            <div class="button" id="tstest">Click me</div>
+            <div class="button" id="tsevent">TS-Event</div>
+            <div class="button" id="tsexception">TS-Exception</div>
+        </div>
+        
+        <div class="example">Test für PREFIXER!</div>
+
+        <div id="unit-tests">
+            <div id="qunit"></div>
+            <div id="qunit-fixture"></div>
+        </div>
+
+        <article>
+            <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+                sea takimata sanctus est Lorem ipsum dolor sit amet.
+            </p>
+            <hr>
+        </article>
+
+        <article>
+            <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+                sea takimata sanctus est Lorem ipsum dolor sit amet.
+            </p>
+            <hr>
+        </article>
+
+    </div>
+    <div class="layout__footer">
+        <div>
+            <span class="loading">Loading...</span>
+        </div>
+        <div>
+            <div class="version_block">
+                <span class="version">Version <%= version %></span>
+                <span class="separator">/</span>
+                <span class="published"><%= published %></span>
+                <span class="separator">/</span>
+            </div>
+            <% if(devmode) { %>
+                <span class="devmode">DevMode</span>
+            <% } else { %>
+                <span class="production">Production</span>
+            <% } %>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>

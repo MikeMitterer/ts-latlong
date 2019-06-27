@@ -1,0 +1,50 @@
+// -------------------------------------------------------------------------------------------------
+// Dient im Prinzip nur für die IDE. Hier werden noch zusätzlich (im Vergleich zur .lib.-Version
+// Browserspezifische files eingebunden.
+
+// Weitere Infos:
+//    https://marcobotto.com/blog/compiling-and-bundling-typescript-libraries-with-webpack/
+//      https://www.typescriptlang.org/docs/handbook/compiler-options.html
+
+{
+    "compilerOptions": {
+        // Dient zum importieren von json-Files
+        // In der "include"-Section müssen auch die *.json-Files
+        // eingebunden werden
+        // "resolveJsonModule": true
+
+        "incremental": true,
+
+        "lib": ["esnext", "dom"]
+    },
+
+    "extends": "./tsconfig.lib",
+    "include": [
+        // Hier werden die auch die Tests eingebunden
+        // Nur damit funktioniert das überschreiben in der "prototype"-chain
+        // Nur damit funktioniert JEST richtig - bzw. die Kombi WS + JEST
+        "src/test/**/*.ts",
+
+        // Dieses includes müssen hier bleiben sonst kommt bei 'yarn build' die Fehlermeldung
+        //      TS6059: File '.../src/browser/app.ts' is not under 'rootDir' '.../persistence/src/main'.
+        //      'rootDir' is expected to contain all source files.
+        "src/browser/**/*.ts",
+        "src/site/images/typings.d.ts",
+        "src/site/images",
+
+        // Node-Teil
+        "src/node/**/*.ts",
+
+        // TS-Lint
+        // "node_modules/tslint-override/register.d.ts",
+
+        // QUnit scheint sonst nicht zu funktionieren
+        "node_modules/@types/qunit/index.d.ts"
+
+        // Test-Config file
+        // Damit das funktioniert muss auch
+        //      "resolveJsonModule": true,
+        // gesetzt sein
+        // "src/test/integration/*.json"
+    ]
+}

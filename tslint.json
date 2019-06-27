@@ -1,0 +1,53 @@
+{
+    "extends": ["tslint:recommended", "tslint-consistent-codestyle"],
+
+    "defaultSeverity": "error",
+
+    "rules": {
+        // "no-console": false
+        "no-trailing-whitespace": { "severity": "off" },
+
+        "one-line": [true, "check-catch", "check-finally", "check-open-brace", "check-whitespace"],
+
+        "quotemark": false,
+        // "explicit-override": [true, "new-line-after-decorators-and-tags" ],
+
+        "object-literal-sort-keys": false,
+
+        "no-any": true,
+
+        "interface-name": [false, "always-prefix"],
+
+        "class-name": false,
+
+        "no-null-keyword": true,
+
+        "no-unused-expression": [true, "allow-new"],
+        
+        "max-classes-per-file": false,
+
+        "variable-name": [
+            true, "ban-keywords", "check-format",
+            "allow-leading-underscore", "allow-pascal-case"
+        ],
+
+        "member-ordering": [
+            true,
+            {
+                "order": [
+                    "public-static-field",
+                    "private-static-field",
+                    "private-instance-field",
+                    "public-instance-field",
+                    "public-constructor",
+                    "private-constructor",
+                    "public-instance-method",
+                    "protected-instance-method",
+                    "private-instance-method"
+                ]
+            }
+        ],
+
+        "typedef": [true, "call-signature", "arrow-call-signature", "property-declaration"]
+    }
+}
