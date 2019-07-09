@@ -45,7 +45,7 @@ export function radianToDeg(rad: number): number {
 }
 
 /** Rounds [value] to given number of [decimals] */
-export function round(value: number, { decimals = 6 }): number {
+export function round(value: number, { decimals = 6 }: { decimals?: number } = {}): number {
     return Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
 }
 
