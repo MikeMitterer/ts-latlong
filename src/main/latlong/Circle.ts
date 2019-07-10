@@ -9,7 +9,7 @@ import { LatLng } from './LatLng';
  *
  * Circle uses by default the Vincenty-Algorithm for distance computations
  */
-class Circle {
+export class Circle {
     private readonly calculator: DistanceCalculator;
 
     public readonly radius: number;

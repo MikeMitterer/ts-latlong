@@ -20,11 +20,12 @@ import { LengthUnit } from './LengthUnit';
  *      final int meter = distance(new LatLng(52.518611,13.408056),new LatLng(51.519475,7.46694444));
  */
 export class Distance implements DistanceCalculator {
-    private readonly radius: number;
     private readonly roundResult: boolean;
 
     /** Returns either [Haversine] oder [Vincenty] calculator */
     private readonly calculator: DistanceCalculator;
+
+    public readonly radius: number;
 
     // prettier-ignore
     constructor({radius = EARTH_RADIUS, roundResult = true, calculator = new Vincenty()}:

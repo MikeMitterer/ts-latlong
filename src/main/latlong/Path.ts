@@ -1,7 +1,7 @@
 import { LoggerFactory } from '@mmit/logging';
 import * as validate from '@mmit/validate';
 import { CatmullRomSpline2D, Point2D } from '../spline/CatmullRomSpline';
-import { round } from './convert';
+import { radianToDeg, round } from './convert';
 import { Distance } from './Distance';
 import { LatLng } from './LatLng';
 
@@ -117,7 +117,11 @@ export class Path<T extends LatLng> {
         path.add(tempCoordinates[0]);
         let baseStep: T = tempCoordinates[0];
 
-        this.coordinates.forEach((coordinate: LatLng, indexCoordinates: number) => {
+        for (
+            let indexCoordinates = 0;
+            indexCoordinates < this.coordinates.length - 1;
+            indexCoordinates++
+        ) {
             const distance = this._distance.distance(
                 tempCoordinates[indexCoordinates],
                 tempCoordinates[indexCoordinates + 1],
@@ -160,10 +164,10 @@ export class Path<T extends LatLng> {
 
                         if (path.nrOfCoordinates === 3) {
                             spline = this._createSpline(
-                                this.coordinates[0],
-                                this.coordinates[0],
-                                this.coordinates[1],
-                                this.coordinates[2],
+                                path.coordinates[0],
+                                path.coordinates[0],
+                                path.coordinates[1],
+                                path.coordinates[2],
                             );
 
                             // Insert new point between 0 and 1
@@ -175,10 +179,10 @@ export class Path<T extends LatLng> {
                         } else if (path.nrOfCoordinates > 3) {
                             const baseIndex = path.nrOfCoordinates - 1;
                             spline = this._createSpline(
-                                this.coordinates[baseIndex - 3],
-                                this.coordinates[baseIndex - 2],
-                                this.coordinates[baseIndex - 1],
-                                this.coordinates[baseIndex],
+                                path.coordinates[baseIndex - 3],
+                                path.coordinates[baseIndex - 2],
+                                path.coordinates[baseIndex - 1],
+                                path.coordinates[baseIndex],
                             );
 
                             // Insert new point at last position - 2 (pushes the next 2 items down)
@@ -193,13 +197,13 @@ export class Path<T extends LatLng> {
             } else {
                 remainingSteps += distance;
             }
-        });
+        }
 
         // If last step is on the same position as the last generated step
         // then don't add the last base step.
         if (
-            baseStep.round() !== tempCoordinates[tempCoordinates.length - 1].round() &&
-            baseStep.round() !== tempCoordinates[0].round() &&
+            baseStep.round().isNotEqual(tempCoordinates[tempCoordinates.length - 1].round()) &&
+            baseStep.round().isNotEqual(tempCoordinates[0].round()) &&
             round(this._distance.distance(baseStep, tempCoordinates[tempCoordinates.length - 1])) >
                 1
         ) {
@@ -214,7 +218,7 @@ export class Path<T extends LatLng> {
                     path.coordinates[baseIndex - 3],
                     path.coordinates[baseIndex - 2],
                     path.coordinates[baseIndex - 1],
-                    path.coordinates[baseIndex - 0],
+                    path.coordinates[baseIndex],
                 );
 
                 path._coordinates.splice(
@@ -236,8 +240,8 @@ export class Path<T extends LatLng> {
                 const spline = this._createSpline(
                     path.coordinates[baseIndex - 1],
                     path.coordinates[baseIndex - 1],
-                    path.coordinates[baseIndex - 0],
-                    path.coordinates[baseIndex - 0],
+                    path.coordinates[baseIndex],
+                    path.coordinates[baseIndex],
                 );
 
                 path._coordinates.splice(baseIndex, 0, this._pointToLatLng(spline.percentage(50)));
@@ -258,12 +262,9 @@ export class Path<T extends LatLng> {
         const tempCoordinates = this.coordinates.slice();
         let length = 0.0;
 
-        this.coordinates.forEach((value: T, indexCoordinates: number) => {
-            length += this._distance.distance(
-                tempCoordinates[indexCoordinates],
-                tempCoordinates[indexCoordinates + 1],
-            );
-        });
+        for (let index = 0; index < this.coordinates.length - 1; index++) {
+            length += this._distance.distance(tempCoordinates[index], tempCoordinates[index + 1]);
+        }
 
         return round(length);
     }
@@ -271,6 +272,43 @@ export class Path<T extends LatLng> {
     /** Returns the number of coordinates */
     public get nrOfCoordinates(): number {
         return this.coordinates.length;
+    }
+
+    /**
+     * Calculates the center of a collection of geo coordinates
+     *
+     * The function rounds the result to 6 decimals
+     */
+    public get center(): LatLng {
+        validate.notEmpty(this.coordinates, () => 'Coordinates must not be empty!');
+
+        let X = 0.0;
+        let Y = 0.0;
+        let Z = 0.0;
+
+        let lat;
+        let lon;
+        let hyp;
+
+        this.coordinates.forEach((coordinate: LatLng) => {
+            lat = coordinate.latitudeInRad;
+            lon = coordinate.longitudeInRad;
+
+            X += Math.cos(lat) * Math.cos(lon);
+            Y += Math.cos(lat) * Math.sin(lon);
+            Z += Math.sin(lat);
+        });
+
+        const nrOfCoordinates = this.coordinates.length;
+        X = X / nrOfCoordinates;
+        Y = Y / nrOfCoordinates;
+        Z = Z / nrOfCoordinates;
+
+        lon = Math.atan2(Y, X);
+        hyp = Math.sqrt(X * X + Y * Y);
+        lat = Math.atan2(Z, hyp);
+
+        return this.latLngFactory(round(radianToDeg(lat)), round(radianToDeg(lon)));
     }
 
     /** 4 Points are necessary to create a [CatmullRomSpline2D] */

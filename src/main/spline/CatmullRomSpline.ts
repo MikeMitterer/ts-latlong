@@ -34,9 +34,9 @@ export class CatmullRomSpline extends CatmullRom<number> {
 
     public position(distance: number): number {
         validate.inclusiveBetween(
+            distance,
             0,
             1,
-            distance,
             () => `Distance must be between 0 and 1 but was ${distance}`,
         );
 
@@ -65,15 +65,15 @@ export class CatmullRomSpline2D extends CatmullRom<Point2D> {
     }
 
     // prettier-ignore
-    public static noEndpoint( _p0: Point2D, _p1: Point2D): CatmullRomSpline2D {
+    public static noEndpoints( _p0: Point2D, _p1: Point2D): CatmullRomSpline2D {
         return new CatmullRomSpline2D(_p0, _p0, _p1, _p1);
     }
 
     public position(distance: number): Point2D {
         validate.inclusiveBetween(
+            distance,
             0,
             1,
-            distance,
             () => `Distance must be between 0 and 1 but was ${distance}`,
         );
 
