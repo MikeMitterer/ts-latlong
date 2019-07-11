@@ -1,7 +1,7 @@
 {
     "name": "@mmit/latlong",
     "author": "Mike Mitterer",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Lightweight library for common latitude and longitude calculation",
     "keywords": [
         "typescript lattitude longitude latlong"
@@ -10,6 +10,9 @@
     "type-check": "tsc",
     "main": "./lib/index.js",
     "typings": "./lib/index.d.ts",
+    "browserslist": [
+        "defaults"
+    ],
     "scripts": {
         "gen:barrels": "barrelsby --singleQuotes --delete -d src/main --exclude ConfigLog4j --exclude 'events/utils' -l top -s flat",
         "serve": "NODE_ENV=development webpack-dev-server --config webpack.web.js --mode development",
