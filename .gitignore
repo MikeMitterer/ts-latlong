@@ -21,8 +21,8 @@ lib/
 bin/
 src/**/*.js
 yarn-error.log
-doc
-doc/
+doc/*
+!doc/images
 .prev.scrmd5
 .scrmd5
 tsconfig.tsbuildinfo
