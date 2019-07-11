@@ -77,7 +77,7 @@ pipeline {
                     sh 'yarn run deploy && git push origin HEAD:master'
 
                     // Zum LightSail-Server
-                    sh 'deployWebApp.sh deploy'
+                    // sh 'deployWebApp.sh deploy'
                 }
             }
         }

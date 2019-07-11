@@ -173,11 +173,11 @@ describe('Path', () => {
     });
 });
 
-/// Print CSV-date on the cmdline
-function exportForGoogleEarth(
-    steps: Path<LatLng>,
-    { showIndex = true }: { showIndex?: boolean } = {},
-): void {
+/**
+ * Print CSV-date on the cmdline
+ */
+// prettier-ignore
+function exportForGoogleEarth( steps: Path<LatLng>, { showIndex = true }: { showIndex?: boolean } = {}): void {
     const distance = new Distance();
 
     const indexIndicator = (indexToDisplay: number): string => {
