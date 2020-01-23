@@ -4,10 +4,10 @@ import { isLatLng, LatLng } from '../../../main/latlong/LatLng';
 
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 
-describe('LatLng', () => {
+describe('LatLng', (): void => {
     // const logger = loggerFactory.getLogger('test.LatLng');
 
-    test('round', () => {
+    test('round', (): void => {
         const latlng = new LatLng(1.123456789, 2.123456789);
         const rounded = latlng.round();
 
@@ -15,28 +15,28 @@ describe('LatLng', () => {
         expect(rounded.longitude).toBe(2.123457);
     });
 
-    test('Range', () => {
-        expect(() => new LatLng(-80.0, 0.0)).not.toThrowError();
-        expect(() => new LatLng(-100.0, 0.0)).toThrow(validate.ArgumentError);
+    test('Range', (): void => {
+        expect((): LatLng => new LatLng(-80.0, 0.0)).not.toThrowError();
+        expect((): LatLng => new LatLng(-100.0, 0.0)).toThrow(validate.ArgumentError);
 
-        expect(() => new LatLng(80.0, 0.0)).not.toThrowError();
-        expect(() => new LatLng(100.0, 0.0)).toThrow(validate.ArgumentError);
+        expect((): LatLng => new LatLng(80.0, 0.0)).not.toThrowError();
+        expect((): LatLng => new LatLng(100.0, 0.0)).toThrow(validate.ArgumentError);
 
-        expect(() => new LatLng(0.0, -170.0)).not.toThrowError();
-        expect(() => new LatLng(0.0, -190.0)).toThrow(validate.ArgumentError);
+        expect((): LatLng => new LatLng(0.0, -170.0)).not.toThrowError();
+        expect((): LatLng => new LatLng(0.0, -190.0)).toThrow(validate.ArgumentError);
 
-        expect(() => new LatLng(0.0, 170.0)).not.toThrowError();
-        expect(() => new LatLng(0.0, 190.0)).toThrow(validate.ArgumentError);
+        expect((): LatLng => new LatLng(0.0, 170.0)).not.toThrowError();
+        expect((): LatLng => new LatLng(0.0, 190.0)).toThrow(validate.ArgumentError);
     });
 
-    test('Rad', () => {
+    test('Rad', (): void => {
         expect(new LatLng(-80.0, 0.0).latitudeInRad).toBe(-1.3962634015954636);
         expect(new LatLng(90.0, 0.0).latitudeInRad).toBe(1.5707963267948966);
         expect(new LatLng(0.0, 80.0).longitudeInRad).toBe(1.3962634015954636);
         expect(new LatLng(0.0, 90.0).longitudeInRad).toBe(1.5707963267948966);
     });
 
-    test('toString', () => {
+    test('toString', (): void => {
         expect(new LatLng(-80.0, 0.0).toString()).toBe(
             'LatLng(latitude:-80.000000, longitude:0.000000)',
         );
@@ -46,14 +46,14 @@ describe('LatLng', () => {
         );
     });
 
-    test('Type', () => {
+    test('Type', (): void => {
         expect(isLatLng(new LatLng(-5, 0))).toBeTrue();
         expect(isLatLng({ latitude: -5, longitude: 0 })).not.toBeTrue();
 
         // expect( ).toBe( );
     });
 
-    test('isEqual', () => {
+    test('isEqual', (): void => {
         expect(new LatLng(-80.0, 0.0).isEqual(new LatLng(-80.0, 0.0))).toBeTrue();
 
         expect(new LatLng(-80.0, 0.0).isEqual(new LatLng(-80.1, 0.0))).not.toBeTrue();

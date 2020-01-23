@@ -32,8 +32,8 @@ export function main(): void {
 
     const divs = Array.from(document.getElementsByTagName('div'));
 
-    divs.forEach((div: HTMLDivElement) => {
-        div.addEventListener('click', (evt: MouseEvent) => {
+    divs.forEach((div: HTMLDivElement): void => {
+        div.addEventListener('click', (evt: MouseEvent): void => {
             evt = new MouseEvent('aaa');
             logger.info(JSON.stringify(evt));
         });

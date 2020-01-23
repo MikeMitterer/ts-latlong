@@ -31,7 +31,7 @@ export class Haversine implements DistanceCalculator {
             bearing,
             -180,
             180,
-            () => `Angle must be between -180 and 180 degrees but was ${bearing}`,
+            (): string => `Angle must be between -180 and 180 degrees but was ${bearing}`,
         );
 
         const h = degToRadian(bearing);

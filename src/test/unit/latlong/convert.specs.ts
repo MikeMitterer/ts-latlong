@@ -3,14 +3,14 @@ import { decimal2sexagesimal, round } from '../../../main/latlong/convert';
 import { LatLng } from '../../../main/latlong/LatLng';
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 
-describe('convert', () => {
+describe('convert', (): void => {
     // const logger = loggerFactory.getLogger('test.convert');
 
-    test('Round to string', () => {
+    test('Round to string', (): void => {
         expect(`${round(1.0, { decimals: 10 }).toFixed(10)}`).toBe('1.0000000000');
     });
 
-    test('decimal2sexagesimal', () => {
+    test('decimal2sexagesimal', (): void => {
         const sexa1 = decimal2sexagesimal(51.519475);
         const sexa2 = decimal2sexagesimal(-19.37555556);
         const sexa3 = decimal2sexagesimal(50.0);

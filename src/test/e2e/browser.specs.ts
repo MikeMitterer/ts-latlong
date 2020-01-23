@@ -13,7 +13,7 @@ import puppeteer, { Browser, Page } from 'puppeteer';
  * Mehr:
  *      https://dev.to/aalises/dealing-with-asynchrony-when-writing-end-to-end-tests-with-puppeteer--jest-n37
  */
-describe('puppeteer.ts', () => {
+describe('puppeteer.ts', (): void => {
     const TEST_PORT = 5000;
 
     // const logger = LoggerFactory.getLogger('test.reminder.ts');
@@ -24,24 +24,28 @@ describe('puppeteer.ts', () => {
     const height = 1080;
 
     // https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md
-    beforeEach(async () => {
-        browser = await puppeteer.launch({
-            headless: false,
-            // slowMo: 100,
-            // args: [`--window-size=${width},${height}`],
-        });
-        page = await browser.newPage();
-        await page.goto(`http://localhost:${TEST_PORT}/`, { waitUntil: 'networkidle0' });
-        await page.setViewport({ width, height });
-        // await jestPuppeteer.debug();
-    });
+    beforeEach(
+        async (): Promise<void> => {
+            browser = await puppeteer.launch({
+                headless: false,
+                // slowMo: 100,
+                // args: [`--window-size=${width},${height}`],
+            });
+            page = await browser.newPage();
+            await page.goto(`http://localhost:${TEST_PORT}/`, { waitUntil: 'networkidle0' });
+            await page.setViewport({ width, height });
+            // await jestPuppeteer.debug();
+        },
+    );
 
-    afterEach(async () => {
-        await page.close();
-        await browser.close();
-    });
+    afterEach(
+        async (): Promise<void> => {
+            await page.close();
+            await browser.close();
+        },
+    );
 
-    test('Test in Browser', async () => {
+    test('Test in Browser', async (): Promise<void> => {
         const title = await page.title();
         expect(title).toStartWith('✔ Title');
         // await page.setContent(

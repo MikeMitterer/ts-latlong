@@ -7,9 +7,9 @@ import {
 } from '../../../main/spline/CatmullRomSpline';
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 
-describe('CatmullRom', () => {
-    describe('CatmullRom 1D', () => {
-        test('> one dimension', () => {
+describe('CatmullRom', (): void => {
+    describe('CatmullRom 1D', (): void => {
+        test('> one dimension', (): void => {
             const spline = new CatmullRomSpline(1, 2, 2, 1);
 
             expect(spline.position(0.25)).toBe(2.09375);
@@ -17,7 +17,7 @@ describe('CatmullRom', () => {
             expect(spline.position(0.75)).toBe(2.09375);
         });
 
-        test('> no endpoints', () => {
+        test('> no endpoints', (): void => {
             const spline = CatmullRomSpline.noEndpoints(1, 2);
 
             expect(spline.position(0.25)).toBe(1.203125);
@@ -28,8 +28,8 @@ describe('CatmullRom', () => {
         });
     });
 
-    describe('CatmullRom 2D', () => {
-        test('> Simple values', () => {
+    describe('CatmullRom 2D', (): void => {
+        test('> Simple values', (): void => {
             const spline = new CatmullRomSpline2D(
                 new Point2D(1, 1),
                 new Point2D(2, 2),
@@ -49,17 +49,17 @@ describe('CatmullRom', () => {
             expect(spline.position(0.75).y).toBe(2.09375);
         });
 
-        test('> no Endpoints', () => {
+        test('> no Endpoints', (): void => {
             const spline = CatmullRomSpline2D.noEndpoints(new Point2D(1, 1), new Point2D(2, 2));
 
             expect(spline.position(0.25).x).toBe(1.203125);
             expect(spline.position(0.25).y).toBe(1.203125);
         }); // end of 'no Endpoints' test
 
-        test('> Exception', () => {
+        test('> Exception', (): void => {
             const spline = CatmullRomSpline2D.noEndpoints(new Point2D(1, 1), new Point2D(2, 2));
 
-            expect(() => spline.position(3.0).x).toThrow(ArgumentError);
+            expect((): number => spline.position(3.0).x).toThrow(ArgumentError);
         }); // end of 'Exception' test
     });
 });

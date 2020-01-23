@@ -76,11 +76,14 @@ export class Path<T extends LatLng> {
         distanceInMeterPerTime: number,
         { smoothPath = true }: { smoothPath?: boolean } = {},
     ): Path<LatLng> {
-        validate.isTrue(distanceInMeterPerTime > 0, () => 'Distance must be greater than 0');
+        validate.isTrue(
+            distanceInMeterPerTime > 0,
+            (): string => 'Distance must be greater than 0',
+        );
         validate.isTrue(
             (smoothPath && this._coordinates.length >= 3) ||
                 (!smoothPath && this._coordinates.length >= 2),
-            () =>
+            (): string =>
                 'At least ${smoothPath ? 3 : 2} coordinates are needed to create the steps in between',
         );
 
@@ -91,7 +94,7 @@ export class Path<T extends LatLng> {
         const baseLength = this.distance;
         validate.isTrue(
             baseLength >= stepDistance,
-            () =>
+            (): string =>
                 `Path distance must be at least ${stepDistance}mn (step distance) but was ${baseLength}`,
         );
 
@@ -280,7 +283,7 @@ export class Path<T extends LatLng> {
      * The function rounds the result to 6 decimals
      */
     public get center(): LatLng {
-        validate.notEmpty(this.coordinates, () => 'Coordinates must not be empty!');
+        validate.notEmpty(this.coordinates, (): string => 'Coordinates must not be empty!');
 
         let X = 0.0;
         let Y = 0.0;
@@ -290,7 +293,7 @@ export class Path<T extends LatLng> {
         let lon;
         let hyp;
 
-        this.coordinates.forEach((coordinate: LatLng) => {
+        this.coordinates.forEach((coordinate: LatLng): void => {
             lat = coordinate.latitudeInRad;
             lon = coordinate.longitudeInRad;
 

@@ -8,8 +8,8 @@ class Name {
     }
 }
 
-describe('basics', () => {
-    test('Test Jest', () => {
+describe('basics', (): void => {
+    test('Test Jest', (): void => {
         const name = new Name('Mike');
 
         expect(name.firstname).toStartWith('Mi');

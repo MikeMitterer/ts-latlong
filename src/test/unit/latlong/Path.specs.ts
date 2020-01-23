@@ -12,11 +12,11 @@ const logger = LoggerFactory.for('latlong.test.unit.latlong.Path')
     .level(LogLevel.INFO)
     .get();
 
-describe('Path', () => {
+describe('Path', (): void => {
     test(
         '> The total size of a path with 1000m length divided by 10sections must have the same' +
             'length as the base path',
-        () => {
+        (): void => {
             const distance = new Distance();
             const startPos = new LatLng(0.0, 0.0);
             const endPos = distance.offset(startPos, 1000, 0);
@@ -38,7 +38,7 @@ describe('Path', () => {
     test(
         '> 10 smoothd out steps in total have approximatly!!! the same length ' +
             'as the base path',
-        () => {
+        (): void => {
             const distance = new Distance();
             const startPos = new LatLng(0.0, 0.0);
             const endPos = distance.offset(startPos, 1000, 0);
@@ -63,7 +63,7 @@ describe('Path', () => {
         },
     );
 
-    test('Path with 3 sections', () => {
+    test('Path with 3 sections', (): void => {
         const distance = new Distance();
         const startPos = new LatLng(0.0, 0.0);
         const pos1 = distance.offset(startPos, 50, 0);
@@ -81,7 +81,7 @@ describe('Path', () => {
         expect(steps.nrOfCoordinates).toBe(4);
     });
 
-    test('> Reality Test - Westendorf, short, should 210m (same as Google Earth)', () => {
+    test('> Reality Test - Westendorf, short, should 210m (same as Google Earth)', (): void => {
         const path = Path.from(westendorf);
         expect(path.distance).toBe(210);
 
@@ -98,7 +98,7 @@ describe('Path', () => {
     test(
         '> ZigZag, according to Google-Earth - 282m,' +
             'first to last point 190m (acc. movable-type.co.uk (Haversine)',
-        () => {
+        (): void => {
             const path = Path.from(zigzag);
             expect(path.distance).toBe(282);
 
@@ -123,20 +123,20 @@ describe('Path', () => {
         },
     );
 
-    describe('PathLength', () => {
-        test('> Distance of empty path should be 0', () => {
+    describe('PathLength', (): void => {
+        test('> Distance of empty path should be 0', (): void => {
             const path = new Path();
 
             expect(path.distance).toBe(0);
         });
 
-        test('> Path length should be 3377m', () => {
+        test('> Path length should be 3377m', (): void => {
             const path = Path.from(route);
 
             expect(path.distance).toBe(3377);
         });
 
-        test('> Path lenght should be 3.377km', () => {
+        test('> Path lenght should be 3.377km', (): void => {
             const path = Path.from(route);
 
             expect(
@@ -145,10 +145,10 @@ describe('Path', () => {
         });
     });
 
-    describe('Center', () => {
+    describe('Center', (): void => {
         test(
             '> Center between Berlin and Moscow should be near Minsk ' + '(54.743683,25.033239)',
-            () => {
+            (): void => {
                 const path = Path.from([cities.berlin, cities.moscow]);
 
                 expect(path.center.latitude).toBe(54.743683);
@@ -157,8 +157,8 @@ describe('Path', () => {
         );
     });
 
-    describe('Utils', () => {
-        test('> Round', () => {
+    describe('Utils', (): void => {
+        test('> Round', (): void => {
             expect(round(123.1)).toBe(123.1);
             expect(round(123.123456)).toBe(123.123456);
             expect(round(123.1234567)).toBe(123.123457);

@@ -18,14 +18,14 @@ function domIsReady(): void {
 
 if (typeof window !== 'undefined') {
     // Mehr: https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState
-    const domIsReadyState = setInterval(() => {
+    const domIsReadyState = setInterval((): void => {
         if (/interactive/.test(document.readyState)) {
             clearInterval(domIsReadyState);
             domIsReady(); // this is the function that gets called when everything is loaded
         }
     }, 10);
 
-    const everythingLoadedState = setInterval(() => {
+    const everythingLoadedState = setInterval((): void => {
         if (/loaded|complete/.test(document.readyState)) {
             clearInterval(everythingLoadedState);
             everythingIsReady(); // this is the function that gets called when everything is loaded

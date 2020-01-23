@@ -37,7 +37,7 @@ export class CatmullRomSpline extends CatmullRom<number> {
             distance,
             0,
             1,
-            () => `Distance must be between 0 and 1 but was ${distance}`,
+            (): string => `Distance must be between 0 and 1 but was ${distance}`,
         );
 
         return (
@@ -74,7 +74,7 @@ export class CatmullRomSpline2D extends CatmullRom<Point2D> {
             distance,
             0,
             1,
-            () => `Distance must be between 0 and 1 but was ${distance}`,
+            (): string => `Distance must be between 0 and 1 but was ${distance}`,
         );
 
         return new Point2D(

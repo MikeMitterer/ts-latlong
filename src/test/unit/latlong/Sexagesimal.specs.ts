@@ -3,8 +3,8 @@ import { decimal2sexagesimal } from '../../../main/latlong/convert';
 import { LatLng } from '../../../main/latlong/LatLng';
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 
-describe('Sexagesimal', () => {
-    test('decimal2sexagesimal', () => {
+describe('Sexagesimal', (): void => {
+    test('decimal2sexagesimal', (): void => {
         const sexa1 = decimal2sexagesimal(51.519475);
         const sexa2 = decimal2sexagesimal(-19.37555556);
         const sexa3 = decimal2sexagesimal(50.0);
