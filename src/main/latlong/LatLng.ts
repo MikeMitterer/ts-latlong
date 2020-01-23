@@ -48,6 +48,20 @@ export class LatLng {
         return this._latitude;
     }
 
+    /**
+     * Make it compatible with Google Maps
+     */
+    public set lat(value: number) {
+        this.latitude = value;
+    }
+
+    /**
+     * Make it compatible with Google Maps
+     */
+    public get lat(): number {
+        return this.latitude;
+    }
+
     public set longitude(value: number) {
         validate.inclusiveBetween(
             value,
@@ -61,6 +75,20 @@ export class LatLng {
 
     public get longitude(): number {
         return this._longitude;
+    }
+
+    /**
+     * Make it compatible with Google Maps
+     */
+    public set lng(value: number) {
+        this.longitude = value;
+    }
+
+    /**
+     * Make it compatible with Google Maps
+     */
+    public get lng(): number {
+        return this.longitude;
     }
 
     public get latitudeInRad(): number {
