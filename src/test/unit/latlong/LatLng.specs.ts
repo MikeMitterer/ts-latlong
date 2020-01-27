@@ -60,4 +60,11 @@ describe('LatLng', (): void => {
 
         expect(new LatLng(-80.0, 0.0).isNotEqual(new LatLng(0.0, 80.0))).toBeTrue();
     });
+
+    test('toGoogleMaps', (): void => {
+        const latlng = new LatLng(1.123456789, 2.123456789);
+
+        expect(latlng.toGMaps().lat).toBe(1.123456789);
+        expect(latlng.toGMaps().lng).toBe(2.123456789);
+    });
 });

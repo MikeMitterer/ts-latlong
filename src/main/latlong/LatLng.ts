@@ -48,20 +48,6 @@ export class LatLng {
         return this._latitude;
     }
 
-    /**
-     * Make it compatible with Google Maps
-     */
-    public set lat(value: number) {
-        this.latitude = value;
-    }
-
-    /**
-     * Make it compatible with Google Maps
-     */
-    public get lat(): number {
-        return this.latitude;
-    }
-
     public set longitude(value: number) {
         validate.inclusiveBetween(
             value,
@@ -78,17 +64,10 @@ export class LatLng {
     }
 
     /**
-     * Make it compatible with Google Maps
+     * Konvertiert in Google-Maps Koordinaten (Benennung)
      */
-    public set lng(value: number) {
-        this.longitude = value;
-    }
-
-    /**
-     * Make it compatible with Google Maps
-     */
-    public get lng(): number {
-        return this.longitude;
+    public toGMaps(): { lat: number; lng: number } {
+        return { lat: this.latitude, lng: this.longitude };
     }
 
     public get latitudeInRad(): number {
