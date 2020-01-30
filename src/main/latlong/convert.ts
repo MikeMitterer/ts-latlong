@@ -46,14 +46,13 @@ export function radianToDeg(rad: number): number {
 
 /** Rounds [value] to given number of [decimals] */
 export function round(value: number, { decimals = 6 }: { decimals?: number } = {}): number {
-    return Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    const decAsNumber = Math.pow(10, decimals); // e.g. 100, 1000 or so
+    return Math.round((value + Number.EPSILON) * decAsNumber) / decAsNumber;
 }
 
 /**
  * Convert a bearing to be within the 0 to +360 degrees range.
  * Compass bearing is in the rangen 0° ... 360°
- *
- * @param final
  */
 export function normalizeBearing(bearing: number): number {
     return (bearing + 360) % 360;
