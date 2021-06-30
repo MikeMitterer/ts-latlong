@@ -46,6 +46,8 @@ describe('puppeteer.ts', (): void => {
     );
 
     test('Test in Browser', async (): Promise<void> => {
+        await page.waitForTimeout(4000)
+
         const title = await page.title();
         expect(title).toStartWith('✔ Title');
         // await page.setContent(
