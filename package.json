@@ -1,7 +1,7 @@
 {
     "name": "@mmit/latlong",
     "author": "Mike Mitterer",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Lightweight library for common latitude and longitude calculation",
     "keywords": [
         "typescript lattitude longitude latlong"
