@@ -26,3 +26,4 @@ doc/*
 .prev.scrmd5
 .scrmd5
 tsconfig.tsbuildinfo
+lib.base/
