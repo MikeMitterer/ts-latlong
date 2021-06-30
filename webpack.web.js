@@ -12,7 +12,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 const date = moment().format('YYYY.MM.DD HH:mm');
-                          1
+
 // This helper function is not strictly necessary.
 // I just don't like repeating the path.join a dozen times.
 function srcPath(subdir) {
