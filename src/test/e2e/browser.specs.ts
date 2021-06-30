@@ -50,11 +50,5 @@ describe('puppeteer.ts', (): void => {
 
         const title = await page.title();
         expect(title).toStartWith('✔ Title');
-        // await page.setContent(
-        //     `
-        //         <h1>Test</h1>
-        //     `,
-        // );
-        // await jestPuppeteer.debug();
     }, 100000);
 });
