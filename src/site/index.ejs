@@ -29,10 +29,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Font für Logo -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- QUNIT -->
-    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.16.0.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
 
     <% if(devmode){ %>
         <script src="http://localhost:35729/livereload.js"></script>
@@ -57,50 +55,27 @@
             <img id="frontImg"/>
         </div>
     </div>
-    <div class="layout__content">
-        <div class="content">
-            <div class="left">
-                <div class="toolbar">
-                    <div class="button" id="tstest">Click me</div>
-                    <div class="button" id="tsevent">TS-Event</div>
-                    <div class="button" id="tsexception">TS-Exception</div>
-                </div><br>
-                <div class="example">Test für PREFIXER!</div>
-                <% include _partials/lorem.html %>
-                <% include _partials/lorem.html %>
-                <% include _partials/lorem.html %>
-                <% include _partials/lorem.html %>
-                <% include _partials/lorem.html %>
-                <% include _partials/lorem.html %>
+    <div class="layout__content col-2">
+        <div class="left">
+            <div class="toolbar">
+                <div class="button" id="tstest">Click me</div>
+                <div class="button" id="tsevent">TS-Event</div>
+                <div class="button" id="tsexception">TS-Exception</div>
             </div>
-            <div class="right">
-                <div id="unit-tests">
-                    <div id="qunit"></div>
-                    <div id="qunit-fixture"></div>
-                </div>
-            </div>
+            <br>
+            <div class="example">Test für PREFIXER!</div>
+            <% include _partials/lorem.html %>
+            <% include _partials/lorem.html %>
+            <% include _partials/lorem.html %>
+            <% include _partials/lorem.html %>
+            <% include _partials/lorem.html %>
+            <% include _partials/lorem.html %>
+        </div>
+        <div class="right">
+            <% include _partials/muni.html %>
         </div>
     </div>
-
-    <div class="layout__footer">
-        <div class="is-left">
-            <span class="loading">Loading...</span>
-        </div>
-        <div class="is-right">
-            <div class="version_block">
-                <span class="version">Version <%= version %></span>
-                <span class="separator">/</span>
-                <span class="published"><%= published %></span>
-                <span class="separator">/</span>
-            </div>
-            <% if(devmode) { %>
-                <span class="devmode">DevMode</span>
-            <% } else { %>
-                <span class="production">Production</span>
-            <% } %>
-        </div>
-
-    </div>
+    <% include _partials/footer.html %>
 
 </div>
 </body>

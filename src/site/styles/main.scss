@@ -1,78 +1,11 @@
 $branding-color: #ffbb00;
-@import "~@mmit/styles/src/mobiad";
+@import "~@mmit/styles/css/mobiad";
+@import "~@mmit/muni/css/muni.css";
+
+@import "ui";
 
 body {
     background-color: #dddddd;
     background-image: url('../images/static/background.png');
-
-    .layout {
-        &__header {
-
-            .demo_images {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-start; // ⇾
-                align-content: space-between; // ||
-                align-items: center; // ↓
-
-                img {
-                    max-height: 30px;
-                    border-radius: 5px;
-                    margin: 0 5px;
-                }
-            }
-        }
-
-        &__content {
-            .content {
-                // CSS-Grid: https://css-tricks.com/snippets/css/complete-guide-grid/
-                display: grid;
-                grid-gap: 10px;
-                grid-template-columns:  1fr 1fr;
-                // grid-template-rows: 220px auto; // 1fr 2fr;
-
-                // justify-items: start | end | center | stretch; // ⇾
-                // align-items: start | end | center | stretch; // ↓
-
-                // justify-content: start | end | center | stretch | space-around | space-between | space-evenly; // ⇾
-                // align-content: start | end | center | stretch | space-around | space-between | space-evenly; // ↓
-
-                // grid-template-areas:
-                //     "map preview"
-                //     "map devices"
-                //     "map devices"
-                //;
-
-                .button {
-                    display: inline-block;
-                    border: 1px solid #b7b7b7 !important;
-                    border-radius: 3px;
-                    padding: 5px 10px;
-                    line-height: 15px;
-                    cursor: pointer;
-                    min-height: 27px;
-
-                    &:focus {
-                        outline: 0;
-                    }
-                }
-
-                #tstest {
-                    background-color: darkolivegreen;
-                }
-
-                #tsevent {
-                    background-color: cornflowerblue;
-                    color: white;
-                }
-
-                #tsexception {
-                    background-color: orangered;
-                    color: white;
-                }
-            }
-        }
-    }
 }
 

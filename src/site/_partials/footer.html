@@ -1,0 +1,18 @@
+<div class="layout__footer">
+    <div class="is-left">
+        <span id="app" class="loading">Loading...</span>
+    </div>
+    <div class="is-right">
+        <div class="version_block">
+            <span class="version">Version <%= version %></span>
+            <span class="separator">/</span>
+            <span class="published"><%= published %></span>
+            <span class="separator">/</span>
+        </div>
+        <% if(devmode) { %>
+        <span class="devmode">DevMode</span>
+        <% } else { %>
+        <span class="production">Production</span>
+        <% } %>
+    </div>
+</div>
