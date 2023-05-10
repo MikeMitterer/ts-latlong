@@ -76,7 +76,6 @@
         "@types/core-js": "^2.5.4",
         "@types/expect-puppeteer": "4.4.5",
         "@types/jest": "^26.0.23",
-        "@types/node": "^15.12.5",
         "@types/puppeteer": "^7.0.4",
         "@types/shelljs": "^0.8.8",
         "@types/ws": "^7.4.5",
