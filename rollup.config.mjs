@@ -4,7 +4,7 @@ import replace from '@rollup/plugin-replace'
 // import { nodeResolve } from '@rollup/plugin-node-resolve';
 // import commonjs from '@rollup/plugin-commonjs'
 
-import pkg from './package.json' // Convert CommonJS modules to ES6
+import pkg from './package.json' assert { type: 'json' };
 
 const name = "latlong"
 
@@ -24,6 +24,7 @@ const incrementalDependencyLoader = {
     external: [
         // ...Object.keys(pkg.dependencies || {}),
         // "fs",
+        '@mmit/validate', '@mmit/logging'
     ],
     plugins: [
         replace({
@@ -31,7 +32,7 @@ const incrementalDependencyLoader = {
             __buildVersion__: pkg.version
         }),
         typescript({
-            typescript: require('typescript'),
+            // typescript: require('typescript'),
             // module: 'esnext',
             //
             // declaration: true,
