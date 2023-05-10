@@ -15,6 +15,7 @@
     ],
     "scripts": {
         "clean": "rm -rf lib dist bin &&  rm -rf node_modules/@types/istanbul-reports && jest --clearCache",
+        "update:browser": "browserslist --update-db",
         "gen:barrels": "barrelsby --singleQuotes --delete -d src/main --exclude ConfigLog4j --exclude 'events/utils' -l top -s flat",
         "serve": "NODE_ENV=development webpack serve --config webpack.web.js --mode development",
         "start": "yarn serve --open",

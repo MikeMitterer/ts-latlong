@@ -72,10 +72,7 @@ export class Path<T extends LatLng> {
      * If [smoothPath] is turned on than the minimum of 3 coordinates is required otherwise
      * we need two
      */
-    public equalize(
-        distanceInMeterPerTime: number,
-        { smoothPath = true }: { smoothPath?: boolean } = {},
-    ): Path<LatLng> {
+    public equalize( distanceInMeterPerTime: number, { smoothPath = true }: { smoothPath?: boolean } = {} ): Path<LatLng> {
         validate.isTrue(
             distanceInMeterPerTime > 0,
             (): string => 'Distance must be greater than 0',

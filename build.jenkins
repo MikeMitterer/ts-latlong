@@ -27,6 +27,9 @@ pipeline {
                         // sh 'cp -f src/test/integration/test-config.linux.json src/test/integration/test-config.json'
                         // sh 'cp -f src/browser/test/test-config.linux.json src/browser/test/test-config.json'
 
+                        // Browser-List updaten
+                        sh 'yarn run update:browser'
+
                         script {
                             // 0 - unchanged, 1 - changed
                             // Script-Logik wird mit ! umgekehrt
