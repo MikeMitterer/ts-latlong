@@ -7,9 +7,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BeautifyHtmlWebpackPlugin = require('beautify-html-webpack-plugin')
 
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const LiveReloadPlugin = require('webpack-livereload-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 const date = moment().format('YYYY.MM.DD HH:mm');
