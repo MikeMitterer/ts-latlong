@@ -1,0 +1,19 @@
+# ------------------------------------------------------------------------------
+# Config-File for Jenkins pushTrigger automatisation
+#
+# In der Jenkins-Konfiguration muss Builds von außerhalb starten aktiv sein!
+#
+# ------------------------------------------------------------------------------
+
+# https://jenkins.int.mikemitterer.at:2083/job/[Full Job NAME], e.g. Scripts/job/Utils
+JENKINS_JOB_NAME="TS-MobiAd/job/latlong"
+
+# by default your GIT-Origin
+# (Builds von außerhalb starten / Authentifizierungstoken)
+JENKINS_JOB_TOKEN="ts-latlong"
+
+# Parameter werden bei manchen builds benötigt
+JENKINS_PARAMS=(
+    "PUBLISH_TO_NMP=false"
+    # "delay=1"
+)
