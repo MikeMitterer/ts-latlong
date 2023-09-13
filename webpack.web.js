@@ -239,6 +239,8 @@ module.exports = {
             process: 'process/browser',
         }),
 
+        new webpack.HotModuleReplacementPlugin(),
+        
         // clean dist folder
         new CleanWebpackPlugin(),
 
