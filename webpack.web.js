@@ -1,32 +1,44 @@
-const webpack = require('webpack');
-const path = require('path');
-const moment = require('moment');
-const package = require('./package');
+const webpack = require('webpack')
+const path = require('path')
+const package = require('./package')
+const datefns = require('date-fns')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BeautifyHtmlWebpackPlugin = require('beautify-html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const BeautifyHtmlWebpackPlugin = require('beautify-html-webpack-plugin')
 
+const LiveReloadPlugin = require('webpack-livereload-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const LiveReloadPlugin = require('webpack-livereload-plugin');
 
-const devMode = process.env.NODE_ENV !== 'production';
-const date = moment().format('YYYY.MM.DD HH:mm');
+const devMode = process.env.NODE_ENV !== 'production'
+const date = datefns.format(Date.now(), 'yyyy.MM.dd HH:mm')
+const supportedLocales = ['en', 'de']
 
 // This helper function is not strictly necessary.
 // I just don't like repeating the path.join a dozen times.
 function srcPath(subdir) {
-    return path.join(__dirname, 'src', subdir);
+    return path.join(__dirname, 'src', subdir)
 }
 
 module.exports = {
+    extends: [
+        path.resolve(__dirname, './webpack.web.local.js'),
+    ],
     cache: devMode,
     // https://webpack.js.org/configuration/target/
     //  - default "web"
     target: 'web',
 
-    // devServer: { port: 8080 },
+    devServer: {
+      // port: 8080
+      // hot: false,
+      // liveReload: false
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*'
+        }
+    },
 
     context: __dirname,
 
@@ -36,7 +48,7 @@ module.exports = {
         index: [path.resolve(__dirname, 'src/browser/index.ts')],
 
         polyfills: path.resolve(__dirname, 'src/browser/polyfills.ts'),
-        mobile: path.resolve(__dirname, 'src/browser/mobile.ts'),
+        mobile: path.resolve(__dirname, 'src/browser/mobile.ts')
 
         // Wird per script-tag eingebunden (js/styles.js?...)
         // Es kann aber auch ein import über das index.ts-File gemacht werden
@@ -49,6 +61,21 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].js',
         pathinfo: true,
+        hashFunction: 'xxhash64'
+    },
+
+    stats: {
+        // https://webpack.js.org/configuration/stats/
+        // assets: false,
+        assetsSort: '!size',
+        // builtAt: false,
+        // moduleAssets: false,
+        // children: false,
+        // chunkGroups: false,
+        // chunkModules: false,
+        // depth: true,
+        // entrypoints: false,
+        excludeModules: true
     },
 
     // Mehr: https://webpack.js.org/configuration/devtool/#devtool
@@ -64,48 +91,61 @@ module.exports = {
         alias: {
             '@main': srcPath('main'),
             '@test': srcPath('test'),
-            '@images': srcPath('site/images'),
+            '@images': srcPath('site/images')
+
+            // Wegen Sinnlosigkeit (funkt nicht) wieder gestrichen
+            // '@mmit/mobicore': srcPath('main'),
+            // '@main': srcPath('main'),
         },
-        // fallback: {
-        //     // Can't resolve 'fs' in
-        //     "fs": false,
-        //
-        //     // "tls": false,
-        //     // "net": false,
-        //     // "path": false,
-        //     // "zlib": false,
-        //     // "http": false,
-        //     // "https": false,
-        //     // "stream": false,
-        //     // "crypto": false,
-        //     // "url": false,
-        //
-        //     // yarn add path-browserify crypto-browserify https-browserify stream-browserify stream-http browserify-zlib assert buffer
-        //     "path": require.resolve("path-browserify"), // yarn add path-browserify
-        //     "crypto": require.resolve("crypto-browserify"), // yarn add crypto-browserify
-        //     "https": require.resolve("https-browserify"), // yarn add https-browserify
-        //     "stream": require.resolve("stream-browserify"), // yarn add stream-browserify
-        //     "http": require.resolve("stream-http"), // yarn add stream-http
-        //     "zlib": require.resolve("browserify-zlib"), // yarn add browserify-zlib
-        //     "assert": require.resolve("assert/"), // yarn add assert
-        //     "url": require.resolve("url"), // yarn add url
-        //
-        //     "buffer": require.resolve("buffer/") // yarn add buffer
-        //     // Muss bei "plugins" noch angegeben werden:
-        //     //
-        //     // new webpack.ProvidePlugin({
-        //     //    Buffer: ['buffer', 'Buffer'],
-        //     //    process: 'process/browser',
-        //     // }),
-        // }
+        fallback: {
+            // Can't resolve 'fs' in
+            "fs": false,
+
+            // Die auskommentierten Module können im webpack.web.local.js
+            // wieder aktiviert werden
+
+            // "tls": false,
+            // "net": false,
+            // "path": false,
+            // "zlib": false,
+            // "http": false,
+            // "https": false,
+            // "stream": false,
+            // "crypto": false,
+            // "url": false,
+
+            // yarn add -D path-browserify crypto-browserify stream-browserify buffer
+            "path": require.resolve("path-browserify"), // yarn add path-browserify
+            "crypto": require.resolve("crypto-browserify"), // yarn add crypto-browserify
+            "stream": require.resolve("stream-browserify"), // yarn add stream-browserify
+
+            //     "path": require.resolve("path-browserify"), // yarn add path-browserify
+            //     "crypto": require.resolve("crypto-browserify"), // yarn add crypto-browserify
+            //     "stream": require.resolve("stream-browserify"), // yarn add stream-browserify
+            //     "https": require.resolve("https-browserify"), // yarn add https-browserify
+            //     "http": require.resolve("stream-http"), // yarn add stream-http
+            //     "zlib": require.resolve("browserify-zlib"), // yarn add browserify-zlib
+            //     "assert": require.resolve("assert/"), // yarn add assert
+            //     "url": require.resolve("url"), // yarn add url
+            //     "process": require.resolve("process"), // yarn add process
+            //     "os": require.resolve("os-browserify/browser"), // yarn add os-browserify
+
+            "buffer": require.resolve("buffer/") // yarn add buffer
+            // Muss bei "plugins" noch angegeben werden:
+            //
+            // new webpack.ProvidePlugin({
+            //    Buffer: ['buffer', 'Buffer'],
+            //    process: 'process/browser',
+            // }),
+        }
     },
     module: {
         rules: [
-            {
-                test: /\.ts$/,
-                enforce: 'pre',
-                loader: 'tslint-loader',
-            },
+            // {
+            //     test: /\.ts$/,
+            //     enforce: 'pre',
+            //     loader: 'tslint-loader'
+            // },
             // {
             //     test: /\.ts?$/,
             //     // Hat probleme beim export (funkt nur einmal - dann ist Restart notwendig)
@@ -138,10 +178,26 @@ module.exports = {
             // }},
 
             // Speed: ~400ms
-            { test: /\.(ts|js)x?$/, loader: 'babel-loader', exclude: [ /node_modules/ ]},
+            // (exclude: /node_modules/, am 27.2.2020 entfernt da es sonst Probleme mit
+            // dem coalescing-operator aus anderen Modulen gibt)
+            {
+                test: /\.(ts|js)x?$/,
+                exclude: /node_modules\/(?!(@mmit)\/).*/,
+                loader: 'babel-loader',
+                options: {
+                    cacheDirectory: true,
+                    // And replace .babelrc with babel.config.json...
+                    babelrc: false
+                }
+            },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader',
+                exclude: [/node_modules\/typescript-collections/]
+            },
 
             // {
             //       // Include ts, tsx, js, and jsx files.
@@ -170,15 +226,15 @@ module.exports = {
                         : {
                               loader: MiniCssExtractPlugin.loader,
                               options: {
-                                  publicPath: '../',
-                              },
+                                  publicPath: '../'
+                              }
                           },
                     {
                         // translates CSS into CommonJS
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true,
-                        },
+                            sourceMap: true
+                        }
                     },
                     {
                         // Autoprefixer usw.
@@ -188,26 +244,36 @@ module.exports = {
                         // compiles Sass to CSS, using Node Sass by default
                         loader: 'sass-loader',
                         options: {
-                            sourceMap: true,
-                        },
-                    },
-                ],
+                            sourceMap: true
+                        }
+                    }
+                ]
             },
+            // {
+            //     // Ist notwendig sonst kommt
+            //     //      "Module parse failed: Unexpected character '' (1:0)..."
+            //     test: /\.(woff|woff2|eot|ttf)$/,
+            //     loader: 'url-loader?limit=100000'
+            // },
+            // {
+            //     test: /\.(png|jpg|gif|svg)$/i,
+            //     use: [
+            //         {
+            //             // https://github.com/webpack-contrib/url-loader
+            //             loader: 'url-loader',
+            //             options: {
+            //                 // if less than 8 kb, add base64 encoded image to css
+            //                 limit: 8192,
+            //
+            //                 // if more than 8 kb move to this folder in build using file-loader
+            //                 name: 'images/[name]-[hash:8].[ext]'
+            //             }
+            //         }
+            //     ]
+            // },
             {
-                test: /\.(png|jpg|gif)$/i,
-                use: [
-                    {
-                        // https://github.com/webpack-contrib/url-loader
-                        loader: 'url-loader',
-                        options: {
-                            // if less than 8 kb, add base64 encoded image to css
-                            limit: 8192,
-
-                            // if more than 8 kb move to this folder in build using file-loader
-                            name: 'images/[name]-[hash:8].[ext]',
-                        },
-                    },
-                ],
+                test: /\.(png|jpg|gif|svg)$/i,
+                type: 'asset/resource'
             },
             {
                 test: /\.ejs$/,
@@ -227,11 +293,11 @@ module.exports = {
                 use: [
                     {
                         loader: 'html-loader',
-                        options: { minimize: false },
-                    },
-                ],
-            },
-        ],
+                        options: { minimize: false }
+                    }
+                ]
+            }
+        ]
     },
     plugins: [
         new webpack.ProvidePlugin({
@@ -239,25 +305,31 @@ module.exports = {
             process: 'process/browser',
         }),
 
-        new webpack.HotModuleReplacementPlugin(),
-        
         // clean dist folder
         new CleanWebpackPlugin(),
 
+        // Clean Terminal before next build
+        // new CleanTerminalPlugin(),
+
         // Weitere Infos: https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
         // load `moment/locale/en.js` and `moment/locale/de.js`
-        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|de/),
+        // new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|de/),
+
+        // Entfernt unnötige locales
+        // Weitere Infos: https://date-fns.org/docs/webpack
+        new webpack.ContextReplacementPlugin(
+            /date-fns[/\\]locale$/,
+            new RegExp(`(${supportedLocales.join('|')})($|\\.js$|\\/index\\.js$)`)
+        ),
 
         // new ExtractTextPlugin({
         //     filename: "[name].css"
         // }),
 
         new CopyWebpackPlugin({
-            patterns: [
-                { from: 'src/site/images/static', to: 'images/static' },
-            ]
+            patterns: [{ from: 'src/site/images/static', to: 'images/static' }]
         }),
-        
+
         // Multiple HTML-Pages
         //  https://extri.co/2017/07/11/generating-multiple-html-pages-with-htmlwebpackplugin/
         new HtmlWebpackPlugin({
@@ -265,7 +337,7 @@ module.exports = {
             templateParameters: {
                 version: package.version,
                 devmode: devMode,
-                published: date,
+                published: date
             },
             hash: true,
             // Weitere Infos: https://goo.gl/wVG6wx
@@ -274,30 +346,29 @@ module.exports = {
             // Variablen funktionieren nicht
             // template: '!!html-loader?interpolate!src/web/index.ejs',
             favicon: path.resolve(__dirname, 'src/site/images/favicon.ico'),
-            chunks: devMode
-                ? ['polyfills', 'mobile', 'index', 'styles']
-                : ['polyfills', 'mobile', 'index'],
+            chunks: devMode ? ['polyfills', 'mobile', 'index', 'styles'] : ['polyfills', 'mobile', 'index']
         }),
+
 
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: devMode ? 'styles/[name].css' : 'styles/[name].[contenthash].css',
-            chunkFilename: devMode ? 'styles/[id].css' : 'styles/[id].[contenthash].css',
+            chunkFilename: devMode ? 'styles/[id].css' : 'styles/[id].[contenthash].css'
         }),
 
         // Options: https://www.npmjs.com/package/js-beautify#css--html
-        new BeautifyHtmlWebpackPlugin({
-            end_with_newline: true,
-            indent_size: 4,
-            indent_with_tabs: true,
-            indent_inner_html: true,
-            preserve_newlines: false,
-            wrap_line_length: 100,
-            unformatted: ['i', 'b', 'span']
-        }),
+        // new BeautifyHtmlWebpackPlugin({
+        //     end_with_newline: true,
+        //     indent_size: 4,
+        //     indent_with_tabs: true,
+        //     indent_inner_html: true,
+        //     preserve_newlines: false,
+        //     wrap_line_length: 100,
+        //     unformatted: ['i', 'b', 'span']
+        // }),
 
-        new LiveReloadPlugin(),
+        new LiveReloadPlugin()
     ],
 
     optimization: {
@@ -323,7 +394,7 @@ module.exports = {
             },
         },
     },
-};
+}
 
 // Reminder!
 // if (devMode) {

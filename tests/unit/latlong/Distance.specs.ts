@@ -1,8 +1,8 @@
 import 'jest-extended';
-import { EARTH_RADIUS, normalizeBearing } from '../../../main/latlong/convert';
-import { Distance } from '../../../main/latlong/Distance';
-import { LatLng } from '../../../main/latlong/LatLng';
-import { LengthUnit } from '../../../main/latlong/LengthUnit';
+import { EARTH_RADIUS, normalizeBearing } from '../../../src/main/latlong/convert';
+import { Distance } from '../../../src/main/latlong/Distance';
+import { LatLng } from '../../../src/main/latlong/LatLng';
+import { LengthUnit } from '../../../src/main/latlong/LengthUnit';
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 
 describe('Distance', (): void => {

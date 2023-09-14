@@ -1,8 +1,8 @@
 import 'jest-extended';
-import { Haversine } from '../../../main/latlong/calculator/Haversine';
-import { Circle } from '../../../main/latlong/Circle';
-import { Distance } from '../../../main/latlong/Distance';
-import { LatLng } from '../../../main/latlong/LatLng';
+import { Haversine } from '../../../src/main/latlong/calculator/Haversine';
+import { Circle } from '../../../src/main/latlong/Circle';
+import { Distance } from '../../../src/main/latlong/Distance';
+import { LatLng } from '../../../src/main/latlong/LatLng';
 
 describe('Circle', (): void => {
     // const logger = loggerFactory.getLogger('test.Circle');

@@ -4,7 +4,7 @@ import {
     CatmullRomSpline,
     CatmullRomSpline2D,
     Point2D,
-} from '../../../main/spline/CatmullRomSpline';
+} from '../../../src/main/spline/CatmullRomSpline';
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 
 describe('CatmullRom', (): void => {

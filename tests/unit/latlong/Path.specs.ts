@@ -1,10 +1,10 @@
 import { LoggerFactory, LogLevel } from '@mmit/logging';
 import 'jest-extended';
-import { round } from '../../../main/latlong/convert';
-import { Distance } from '../../../main/latlong/Distance';
-import { LatLng } from '../../../main/latlong/LatLng';
-import { LengthUnit } from '../../../main/latlong/LengthUnit';
-import { Path } from '../../../main/latlong/Path';
+import { round } from '../../../src/main/latlong/convert';
+import { Distance } from '../../../src/main/latlong/Distance';
+import { LatLng } from '../../../src/main/latlong/LatLng';
+import { LengthUnit } from '../../../src/main/latlong/LengthUnit';
+import { Path } from '../../../src/main/latlong/Path';
 import { cities, route, westendorf, zigzag } from '../_resources/testpath';
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 

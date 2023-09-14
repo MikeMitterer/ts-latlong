@@ -1,6 +1,6 @@
 import * as validate from '@mmit/validate';
 import 'jest-extended';
-import { isLatLng, LatLng } from '../../../main/latlong/LatLng';
+import { isLatLng, LatLng } from '../../../src/main/latlong/LatLng';
 
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 

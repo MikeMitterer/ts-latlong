@@ -57,11 +57,11 @@ module.exports = {
 
     module: {
         rules: [
-            {
-                test: /\.ts$/,
-                enforce: 'pre',
-                loader: 'tslint-loader',
-            },
+            // {
+            //     test: /\.ts$/,
+            //     enforce: 'pre',
+            //     loader: 'tslint-loader',
+            // },
             // {
             //     test: /\.ts?$/,
             //     // Hat probleme beim export (funkt nur einmal - dann ist Restart notwendig)

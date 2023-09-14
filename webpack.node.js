@@ -40,11 +40,11 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.ts$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-      },
+      // {
+      //   test: /\.ts$/,
+      //   enforce: 'pre',
+      //   loader: 'tslint-loader',
+      // },
       {
         // Include ts, tsx, js, and jsx files.
         test: /\.(ts|js)x?$/,

@@ -1,6 +1,6 @@
 import 'jest-extended';
-import { decimal2sexagesimal } from '../../../main/latlong/convert';
-import { LatLng } from '../../../main/latlong/LatLng';
+import { decimal2sexagesimal } from '../../../src/main/latlong/convert';
+import { LatLng } from '../../../src/main/latlong/LatLng';
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 
 describe('Sexagesimal', (): void => {

@@ -1,12 +1,12 @@
 // -------------------------------------------------------------------------------------------------
-// Die .lib-Version exkludiert src/browser das dieses Dir nur zum testen
+// Die .lib-Version exkludiert src/browser das dieses Dir nur zum Testen
 // im browser benötigt wird
 //
-// Dieses File wird auch in packages#buidl.ts verwendet (zum erstellen der Lib)
+// Dieses File wird auch in packages#buidl.ts verwendet (zum Erstellen der Lib)
 //
 // Weitere Infos:
 //    https://marcobotto.com/blog/compiling-and-bundling-typescript-libraries-with-webpack/
-//      https://www.typescriptlang.org/docs/handbook/compiler-options.html
+//    https://www.typescriptlang.org/docs/handbook/compiler-options.html
 //
 {
     "compileOnSave": true,
@@ -15,15 +15,24 @@
         // Da sonst die lib nur teilweise generiert wird
 
         "strict": true,
-        "target": "esnext",
+        "target": "es2020",
 
         "outDir": "./lib",
-        "rootDir": "./src",
+      
+        // Ist "rootDir" z.B. auf "./src" kommt bei Jest folgende Fehlermeldung:
+        //     Unable to process '...UserFactory.specs.ts', please make sure that `outDir` in your tsconfig
+        //     is neither `''` or `'.'`. You can also configure Jest config option
+        //     `transformIgnorePatterns` to inform `ts-jest` to transform
+        //
+        // wird in packages.json beim "build" evtl. überschrieben (src/main)
+        "rootDir": ".",
 
         // commonjs, amd oder es6 (esnext)
         // Beste Variante ist es6 (Vue esnext)
         // Mehr: http://www.geekabyte.io/2018/12/understanding-javascript-modules-as.html
-        "module": "esnext",
+        //
+        // Rollup-Projekte überschreiben dieses Setting auf "esnext"!
+        "module": "commonjs",
         "moduleResolution": "node",
 
         "sourceMap": true,
@@ -41,7 +50,7 @@
         "noImplicitReturns": true,
         "noEmitOnError": true,
         "strictNullChecks": true,
-        "preserveConstEnums": true,
+        "preserveConstEnums": false,
         "removeComments": false,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -59,7 +68,7 @@
         // Import von Images funkt nicht mehr
         // "esModuleInterop": true,
 
-        // Dient zum importieren von json-Files
+        // Dient zum Importieren von json-Files
         // In der "include"-Section müssen auch die *.json-Files
         // eingebunden werden
         // (Sollte in tsconfig.json eingeschaltet werden (wenn notwendig)!)
@@ -79,7 +88,7 @@
         "paths": {
             // Pfade müssen auch in WebPack entsprechend definiert sein!
             // Funktioniert nicht richtig!
-            //  https://github.com/Microsoft/TypeScript/issues/10866
+            //      https://github.com/Microsoft/TypeScript/issues/10866
             //
             // "@main/*": ["main/*"]
             // "@test/*":                     [ "test/ts/*"],
@@ -88,12 +97,22 @@
 
         // 'dom' muss drin bleiben da es sonst
         // Probleme bei compilieren mit "Puppeteer" gibt
-        "lib": ["esnext", "dom"]
+        "lib": ["esnext", "dom"],
         // "lib": [ "dom"],
-        // "types": ["node"],
 
-        // Fallback wenn nach d.ts Files gesucht wird
-        // "typeRoots": ["./src/global.d.ts", "node_modules/@types"]
+        // If types is specified, only packages listed will be included.
+        //      Mehr: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#types-typeroots-and-types
+        "types": [
+            "node",
+            "jest",
+            "jest-extended"
+        ]
+
+        // Fallback, wenn nach d.ts Files gesucht wird
+        // "typeRoots": [
+        //     "./src/types",
+        //     "node_modules/@types"
+        // ]
     },
     // https://github.com/s-panferov/awesome-typescript-loader
     "awesomeTypescriptLoaderOptions": {
@@ -102,11 +121,18 @@
         // "reportFiles": ["src/**/*.{ts,tsx}"]
     },
     "include": [
-        // "src/index.ts",
+        "src/main/index.ts",
         "src/main/**/*.ts",
 
-        // Damit funktioniert jest-extended
-        "src/types/global.d.ts"
+        // Damit funktioniert jest-extended + qunit
+        // "src/types/*.ts"
+
+        // Damit können images (mit ts-loader) importiert werden
+        "src/site/images/typings.d.ts",
+
+        // Muss auch in tsconfig.lib.json definiert sein!
+        // Damit funktioniert z.B. 'const conf: MobiAdApp.Config' ohne import
+        "src/types/*.d.ts"
     ],
-    "exclude": ["lib", "node_modules"]
+    "exclude": ["lib", "node_modules", "dist" ]
 }

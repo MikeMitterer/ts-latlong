@@ -45,7 +45,7 @@ pipeline {
                     sh 'yarn run clean'
 
                     sh 'yarn run tc'
-                    sh 'yarn run lint'
+                    // sh 'yarn run lint'
                     sh 'yarn run test'
                 }
             }

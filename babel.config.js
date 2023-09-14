@@ -1,49 +1,51 @@
 module.exports = {
-    "presets": [
+    presets: [
         [
             // Mehr: https://babeljs.io/docs/en/babel-preset-env
-            "@babel/preset-env",
-            {
-                "targets": {
+            '@babel/preset-env', {
+                targets: {
+                    // [ 2023 09 12 ] - Es scheint noch probleme mit webapp/lib/utils/md5... zu geben
+
                     // When specifying this option, the browsers field will be ignored.
                     // "esmodules": true,
 
-                    "node": "current",
-                    "browsers": [
-                        "last 2 Chrome versions",
-                        "last 1 Safari versions",
-                        "last 1 Firefox versions"
-                    ]
+                    // "browsers": [
+                    //     "last 2 Chrome versions",
+                    //     "last 1 Safari versions",
+                    //     "last 1 Firefox versions"
+                    // ],
+                    node: 'current',
                 },
                 // Enable transformation of ES6 module syntax to another module type.
                 // Setting this to false will not transform modules.
-                "modules": "auto"
-            }
+                modules: 'auto'
+            },
+            '@babel/preset-typescript'
         ],
-        "@babel/typescript"
+        '@babel/typescript'
     ],
-    "plugins": [
-        // "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread",
-        "@babel/plugin-transform-runtime",
-        ["transform-inline-environment-variables", {
-            "include": [
-                "NODE_ENV", "REQUIRE_TARGET"
-            ]
-        }]
+    plugins: [
+        // yarn add -D @babel/plugin-transform-runtime babel-plugin-transform-inline-environment-variables
+        '@babel/plugin-transform-runtime',
+        [
+            'transform-inline-environment-variables',
+            {
+                include: ['NODE_ENV', 'REQUIRE_TARGET']
+            }
+        ]
     ],
-    "env": {
+    env: {
         // BABEL_ENV=node <command (e.g. yarn test:unit)>
-        "node": {
-            "presets": [
+        node: {
+            presets: [
                 [
-                    "@babel/preset-env",
+                    '@babel/preset-env',
                     {
-                        "targets": {
-                            "esmodules": true,
-                            "node": "current"
+                        targets: {
+                            esmodules: true,
+                            node: 'current'
                         },
-                        "modules": "auto"
+                        modules: 'auto'
                     }
                 ]
             ]

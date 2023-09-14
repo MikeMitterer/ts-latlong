@@ -37,9 +37,9 @@ const incrementalDependencyLoader = {
             //
             // declaration: true,
             // declarationDir: './lib/types/',
-            rootDir: './src/main',
-            
             tsconfig: "tsconfig.lib.json",
+            rootDir: './src/main',
+            module: 'esnext',
         }),
     ]
 };

@@ -1,5 +1,5 @@
 import 'jest-extended';
-import { LengthUnit } from '../../../main/latlong/LengthUnit';
+import { LengthUnit } from '../../../src/main/latlong/LengthUnit';
 // import { loggerFactory } from '../../main/config/ConfigLog4j';
 
 describe('LengthUnit', (): void => {

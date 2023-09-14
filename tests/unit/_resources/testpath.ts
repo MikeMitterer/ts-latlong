@@ -1,4 +1,4 @@
-import { LatLng } from '../../../main/latlong/LatLng';
+import { LatLng } from '../../../src/main/latlong/LatLng';
 
 export const cities = {
     berlin: new LatLng(52.518611, 13.408056),
