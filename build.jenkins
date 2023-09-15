@@ -7,6 +7,7 @@ pipeline {
     environment { SRC_CHANGED=true }
 
     parameters {
+        booleanParam(defaultValue: false, description: 'Deletes node_modules-Folder', name: 'REMOVE_NODE_MODULES')
         booleanParam(defaultValue: false, description: 'Publishes the module to NPMJS', name: 'PUBLISH_TO_NMP')
     }
 
@@ -15,7 +16,11 @@ pipeline {
             steps {
                 timeout(time: 15, unit: 'MINUTES') {
                     ansiColor('xterm') {
-                        sh 'yarn install'
+                        script { if (env.REMOVE_NODE_MODULES) {
+                            sh 'rm -rf node_modules yarn.lock'
+                        }}
+
+                        sh 'yarn clean && yarn install'
 
                         // Repos von Amazon holen
                         // sh 'docker/_ci/run.sh --pull'
