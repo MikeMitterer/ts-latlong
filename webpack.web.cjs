@@ -101,7 +101,7 @@ module.exports = {
             // Can't resolve 'fs' in
             "fs": false,
 
-            // Die auskommentierten Module können im webpack.web.local.cjs
+            // Die auskommentierten Module können im webpack.web.local.js
             // wieder aktiviert werden
 
             // "tls": false,
