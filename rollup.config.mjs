@@ -1,3 +1,10 @@
+/**
+ * Using Rollup - what do to first:
+ *    - yarn add -D @rollup/plugin-commonjs @rollup/plugin-node-resolve @rollup/plugin-replace @rollup/plugin-typescript rollup
+ *    - Change "module" in tsconfig.lib.json to esnext
+ *    - Add script to package.json: "build:rup": "rollup -c",
+ */
+
 import typescript from '@rollup/plugin-typescript';
 import replace from '@rollup/plugin-replace'
 
@@ -8,7 +15,7 @@ import pkg from './package.json' assert { type: 'json' };
 
 const name = "latlong"
 
-const incrementalDependencyLoader = {
+const lib = {
     // this is the entry file, this should expose our API
     input: 'src/main/index.ts',
     // this is where the bundled javascript file will be put
@@ -37,14 +44,15 @@ const incrementalDependencyLoader = {
             //
             // declaration: true,
             // declarationDir: './lib/types/',
-            tsconfig: "tsconfig.lib.json",
             rootDir: './src/main',
+            outDir: './lib',
             module: 'esnext',
+            tsconfig: "tsconfig.lib.json",
         }),
     ]
 };
 
 // with using an array, we can create multiple bundled javascript files
 export default [
-    incrementalDependencyLoader
+    lib
 ];
