@@ -32,7 +32,7 @@ module.exports = {
             //     "zlib": require.resolve("browserify-zlib"), // yarn add -D browserify-zlib
             //     "assert": require.resolve("assert/"), // yarn add -D assert
             //     "url": require.resolve("url"), // yarn add -D url
-            //     "process": require.resolve("process"), // yarn add -D process
+            "process": require.resolve("process"), // yarn add -D process
             //     "os": require.resolve("os-browserify/browser"), // yarn add -D os-browserify
             //     "util": require.resolve("util/"), // yarn add -D util
             //     "querystring": require.resolve("querystring-es3"), // yarn add -D querystring-es3

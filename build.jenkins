@@ -16,7 +16,7 @@ pipeline {
             steps {
                 timeout(time: 15, unit: 'MINUTES') {
                     ansiColor('xterm') {
-                        script { if (env.REMOVE_NODE_MODULES) {
+                        script { if (params.REMOVE_NODE_MODULES) {
                             sh 'rm -rf node_modules yarn.lock'
                         }}
 
