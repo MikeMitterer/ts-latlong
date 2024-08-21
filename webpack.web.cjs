@@ -101,7 +101,7 @@ module.exports = {
             // Can't resolve 'fs' in
             "fs": false,
 
-            // Die auskommentierten Module können im webpack.web.local.js
+            // Die auskommentierten Module können im webpack.web.local.cjs
             // wieder aktiviert werden
 
             // "tls": false,
@@ -162,6 +162,17 @@ module.exports = {
             //         babelCore: "@babel/core", // needed for Babel v7
             // }},
 
+            // {
+            //     test: /\.m?js$/,
+            //     type: "javascript/auto",
+            // },
+            // {
+            //     test: /\.m?js$/,
+            //     resolve: {
+            //         fullySpecified: false,
+            //     },
+            // },
+
             // Speed: ~1000ms
             // { test: /\.tsx?$/, use: [{ loader: 'babel-loader'}, { loader: 'ts-loader',
             //      options: {
@@ -182,13 +193,17 @@ module.exports = {
             // dem coalescing-operator aus anderen Modulen gibt)
             {
                 test: /\.(ts|js)x?$/,
+                type: "javascript/auto",
                 exclude: /node_modules\/(?!(@mmit)\/).*/,
                 loader: 'babel-loader',
                 options: {
                     cacheDirectory: true,
                     // And replace .babelrc with babel.config.json...
                     babelrc: false
-                }
+                },
+                resolve: {
+                    fullySpecified: false,
+                },
             },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
