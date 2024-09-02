@@ -27,7 +27,11 @@ module.exports = {
         headless: 'new',
         // devtools: true
 
-        // args: ['--lang=en-GB']
+        // https://pptr.dev/troubleshooting#setting-up-chrome-linux-sandbox
+        // args: [
+        //     '--no-sandbox',
+        //     '--disable-setuid-sandbox',
+        // ]
     },
 }
 
